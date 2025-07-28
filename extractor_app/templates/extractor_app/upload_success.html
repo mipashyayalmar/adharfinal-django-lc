@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Success</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; text-align: center; background-color: #f4f4f4; color: #333; }
+        .message-box { border: 1px solid #28a745; background-color: #e2fce4; padding: 30px; border-radius: 10px; max-width: 500px; margin: 50px auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #28a745; margin-bottom: 15px; }
+        p { font-size: 1.1em; line-height: 1.6; }
+        a { color: #007bff; text-decoration: none; transition: color 0.3s ease; }
+        a:hover { text-decoration: underline; color: #0056b3; }
+        .nav-link { display: inline-block; background-color: #6c757d; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-top: 20px; transition: background-color 0.3s ease; }
+        .nav-link:hover { background-color: #5a6268; }
+    </style>
+</head>
+<body>
+    <div class="message-box">
+        <h1>Success!</h1>
+        <p>Your Aadhaar image has been successfully uploaded and processed.</p>
+        <p>The extracted data has been saved to the database.</p>
+        <a href="{% url 'upload_aadhaar' %}" class="nav-link">Upload another image</a>
+        <br><br>
+        <a href="{% url 'list_aadhaar' %}" class="nav-link">View all uploaded data</a>
+    </div>
+</body>
+</html>

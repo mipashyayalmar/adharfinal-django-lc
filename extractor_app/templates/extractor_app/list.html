@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Aadhaar Data</title>
+    <style>
+       body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+.container { max-width: 900px; margin: 30px auto; background-color: #fff; /* THIS IS THE WHITE BACKGROUND */ padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>All Aadhaar Data</h1>
+
+        {% if all_aadhaar %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Aadhaar Number</th>
+                    <th>DOB</th>
+                    <th>Gender</th>
+                    <th>Extraction Status</th>
+                    <th>Extracted On</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in all_aadhaar %}
+                <tr>
+                    <td>{{ data.pk }}</td>
+                    <td>{{ data.name|default:"N/A" }}</td>
+                    <td>{{ data.aadhaar_number|default:"N/A" }}</td>
+                    <td>{{ data.date_of_birth|default:"N/A" }}</td>
+                    <td>{{ data.gender|default:"N/A" }}</td>
+                    <td>
+                        {% if data.extraction_successful %}
+                            <span class="status-success">Success</span>
+                        {% else %}
+                            <span class="status-fail">Partial/Failed</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ data.extracted_on|date:"Y-m-d H:i" }}</td>
+                    <td>
+                        <a href="{% url 'aadhaar_detail' pk=data.pk %}">View Details</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-data">No Aadhaar data uploaded yet.</p>
+        {% endif %}
+
+        <div class="nav-links">
+            <a href="{% url 'upload_aadhaar' %}">Upload New Aadhaar</a>
+        </div>
+    </div>
+</body>
+</html>
