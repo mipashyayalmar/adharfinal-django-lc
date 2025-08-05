@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadhaar Front Data List</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 800px; margin: 30px auto; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #0056b3; margin-bottom: 25px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; }
+        tr:hover { background-color: #f1f1f1; }
+        .nav-links { text-align: center; margin-top: 20px; }
+        .nav-links a { display: inline-block; background-color: #6c757d; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; transition: background-color 0.3s ease; }
+        .nav-links a:hover { background-color: #5a6268; }
+        .status-success { color: #28a745; }
+        .status-fail { color: #dc3545; }
+        .status-pending { color: #ffc107; } /* Style for pending back upload */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aadhaar Front Data Entries</h1>
+        {% if all_front_cards %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Aadhaar Number</th>
+                        <th>Front Status</th>
+                        <th>Back Status</th>
+                        <th>Uploaded On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for front_card in all_front_cards %}
+                        <tr>
+                            <td><a href="{% url 'aadhaar_front_detail' pk=front_card.pk %}">{{ front_card.name|default:"N/A" }}</a></td>
+                            <td>{{ front_card.aadhaar_number|default:"N/A" }}</td>
+                            <td>
+                                {% if front_card.extraction_successful %}
+                                    <span class="status-success">Success</span>
+                                {% else %}
+                                    <span class="status-fail">Partial/Failed</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if front_card.back_side %} {# Check if related back_side exists #}
+                                    {% if front_card.back_side.extraction_successful %}
+                                        <span class="status-success">Success</span>
+                                    {% else %}
+                                        <span class="status-fail">Partial/Failed</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="status-pending">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ front_card.extracted_on|date:"F d, Y P" }}</td>
+                            <td>
+                                <a href="{% url 'aadhaar_front_detail' pk=front_card.pk %}">View</a> |
+                                {% if not front_card.back_side %}
+                                    <a href="{% url 'upload_aadhaar_back' front_pk=front_card.pk %}">Add Back</a>
+                                {% else %}
+                                    <a href="{% url 'upload_aadhaar_back' front_pk=front_card.pk %}">Update Back</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No Aadhaar front data available.</p>
+        {% endif %}
+        <div class="nav-links">
+            <a href="{% url 'upload_aadhaar_front' %}">Upload New Aadhaar Front</a>
+        </div>
+    </div>
+</body>
+</html>

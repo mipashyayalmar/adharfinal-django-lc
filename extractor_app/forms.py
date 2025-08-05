@@ -1,8 +1,14 @@
-# forms.py
-from django import forms
-from .models import AadhaarData
+# extractor_app/forms.py
 
-class AadhaarUploadForm(forms.ModelForm):
+from django import forms
+from .models import AadhaarFront, AadhaarBack
+
+class AadhaarFrontUploadForm(forms.ModelForm):
     class Meta:
-        model = AadhaarData
+        model = AadhaarFront
         fields = ['image']
+
+class AadhaarBackUploadForm(forms.ModelForm):
+    class Meta:
+        model = AadhaarBack
+        fields = ['back_image']

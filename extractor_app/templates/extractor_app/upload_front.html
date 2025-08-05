@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Aadhaar Card</title>
+    <title>Upload Aadhaar Card Front Side</title>
     <style>
         body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
         .container { max-width: 600px; margin: 30px auto; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Upload Aadhaar Card</h1>
+        <h1>Upload Aadhaar Card Front Side</h1>
         <div class="form-container">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -34,11 +34,11 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-                <input type="submit" value="Upload and Process">
+                <input type="submit" value="Upload and Process Front Side">
             </form>
         </div>
         <div class="nav-links">
-            <a href="{% url 'list_aadhaar' %}">View All Entries</a>
+            <a href="{% url 'list_aadhaar_fronts' %}">View All Front Entries</a>
         </div>
     </div>
 </body>
