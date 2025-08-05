@@ -30,7 +30,7 @@
 
         <div class="image-container">
             {% if aadhaar_data.image %}
-                <img src="{{ aadhaar_data.url }}" alt="Aadhaar Image">
+                <img src="{{ aadhaar_data.image.url }}" alt="Aadhaar Image">
             {% else %}
                 <p>No image uploaded for this entry.</p>
             {% endif %}
@@ -67,10 +67,6 @@
             </span>
         </div>
 
-        <div class="raw-text-section">
-            <h2>Raw Extracted Text (for Debugging)</h2>
-            <pre class="raw-text-content">{{ aadhaar_data.raw_text|default:"No raw text available." }}</pre>
-        </div>
 
         <div class="nav-links">
             <a href="{% url 'list_aadhaar' %}">Back to List</a>
